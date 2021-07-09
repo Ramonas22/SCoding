@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
 {
-    public $timestamps = false;
     use HasFactory;
     protected $table ='Devices';
-    
+    public $timestamps = false;
 }

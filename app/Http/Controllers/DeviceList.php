@@ -10,7 +10,7 @@ class DeviceList extends Controller
     //
     function show()
     {
-        $data= Devices::all();
-        return view('list',['Devices'=>$data]);
+        $Deviceslist =Device::all();
+        return view('home', ['Deviceslist'=>$Deviceslist]);
     }
 }

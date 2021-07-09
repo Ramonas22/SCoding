@@ -16,18 +16,18 @@ use App\Http\Controllers\InsertDevice;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('home', [DeviceList::class,'show'])->middleware('auth');
 
-Route::get('/home', [App\Http\Controllers\DeviceList::class,'show']);
+Route::post('addDevice',[InsertDevice::class,'save'])->name('InsertDevice@save');
 
-Route::view('home','home');
-Route::post('submit',[InsertDevice::class,'save'])->name('InsertDevice@save');
+Route::view('addDevice','home')->middleware('auth');
+

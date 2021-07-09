@@ -10,12 +10,18 @@ class InsertDevice extends Controller
     //
     function save(Request $req)
     {
-        print_r($req->input());
+        $req->validate([
+            'DeviceIdName'=>'required | min:6',
+            'LocationX'=>'required',
+            'LocationY'=>'required'
+        ]);
+
         $Devices = new Device;
-        $Devices ->name = $req->name;
+        $Devices ->DeviceIdName = $req->DeviceIdName;
         $Devices ->LocationX = $req->LocationX;
         $Devices ->LocationY = $req->LocationY;
+        $Devices ->DeviceType = $req->DeviceType;
         echo $Devices ->save();
-
+        return back();
     }
 }
