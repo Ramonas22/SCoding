@@ -161,11 +161,13 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        //Service provider for google maps
+        GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
-
+        
         /*
          * Application Service Providers...
          */
@@ -227,6 +229,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        //Class Aliases for googlemaps
+        'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
 
     ],
 

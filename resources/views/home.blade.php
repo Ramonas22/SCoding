@@ -1,7 +1,17 @@
 @extends('layouts.app')
 
+
 @section('content')
 <html>
+
+    <script>
+        function text(x) {
+            if(x==0) document.getElementById("AddNewDevice").style.display="block";
+            else document.getElementById("AddNewDevice").style.display="none";
+            return;
+        }
+    </script>
+
     <body>
         <div class="container">
             <div class="row">
@@ -11,8 +21,8 @@
                     <tr>
                         <td>ID</td>
                         <td>Device ID name</td>
-                        <td>Location on X axis</td>
-                        <td>Location on Y axis</td>
+                        <td>Longitude</td>
+                        <td>Latitude</td>
                         <td>Device type</td>
                     </tr>
                     @foreach($Deviceslist as $Deviceunit)
@@ -35,34 +45,47 @@
                 </tr>
                 </table>
                 <br><br>
-                <form action="addDevice" method="POST">
-                    @csrf
-                    <input type="text" name="DeviceIdName" placeholder="Input Device ID name">
-                    <br>
-                    <span style="color:red">@error('DeviceIdName'){{$message}}@enderror</span>
-                    <br>
-                    <input type="text" name="LocationX" placeholder="Location X">
-                    <br>
-                    <span style="color:red">@error('LocationX'){{$message}}@enderror</span><br>
-                    <input type="text" name="LocationY" placeholder="Location Y">
-                    <br>
-                    <span style="color:red">@error('LocationY'){{$message}}@enderror</span>
-                    <br>
-                    <select class="form-control" name="DeviceType">
-                        <option value="Home">Home Device</option>
-                        <option value="Work">Work Device</option>            
-                    </select>
-                    <br><br>
-                    <button type="submit"> Add Device</button>
-                </form>
+                <div class="radio-container m-r-45">
+                    <button type="radio" name="fir" onclick="text(0)">Add New Device</button>
                 </div>
-                <div class="col">
-                @section('scripts')
-                    @parent
-                    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
-                    <script src="/js/mapInput.js"></script>
-                    @stop
+                <br><br>
+                    <div class="input-group" id="AddNewDevice" style="display:none">
+                        <form action="addDevice" method="POST">
+                            @csrf
+                            <td>Device Name</td>
+                            <input type="text" name="DeviceIdName" placeholder="Input Device ID name">
+                            <br>
+                            <span style="color:red">@error('DeviceIdName'){{$message}}@enderror</span>
+                            <br>
+                            <tr>Longitude</tr>
+                            <input type="text" name="LocationX" placeholder="Insert longitude">
+                            <br>
+                            <span style="color:red">@error('LocationX'){{$message}}@enderror</span><br>
+                            <tr>Latitude</tr>
+                            <input type="text" name="LocationY" placeholder="Insert latitude">
+                            <br>
+                            <span style="color:red">@error('LocationY'){{$message}}@enderror</span>
+                            <br>
+                            <tr>Select whether device is home or work</tr>
+                            <select class="form-control" name="DeviceType">
+                                <option value="Home">Home Device</option>
+                                <option value="Work">Work Device</option>            
+                            </select>
+                            <br>
+                            <div class="radio-container m-r-45">
+                                <button type="submit" onclick=""> Add Device</button>
+                                <button type="radio" name="fir" onclick="text(1)" >Cancel</button>
+                               
+                            </div>    
+                        </form>
+
+                    </div>
                 </div>
+
+
+                <div class="col" >
+                    <div align="center">Map Here</div>
+                    <div id='map'></div>
             </div>
         </div>
     </body>
